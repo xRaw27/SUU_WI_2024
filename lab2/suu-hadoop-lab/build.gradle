@@ -1,0 +1,23 @@
+apply plugin: 'java' //necessary for any java project
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ 
+// Set up group and version info for the artifact
+group = "pl.edu.agh.suu.hadoop"
+
+repositories {
+    mavenCentral() //repositories for downloading your dependencies
+}
+ 
+//dependencies for hadoop application
+
+dependencies {
+    implementation group: 'org.apache.hadoop', name: 'hadoop-mapreduce-client-core', version: '2.10.1'
+    implementation group: 'org.apache.hadoop', name: 'hadoop-common', version: '2.10.1'
+}
+
+jar {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
